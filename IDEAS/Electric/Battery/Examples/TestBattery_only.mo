@@ -1,17 +1,14 @@
 within IDEAS.Electric.Battery.Examples;
-model TestBattery
+model TestBattery_only
   // Test the charging and discharging of a battery
 
   Modelica.SIunits.Power Pnet;
 
-  DistributionGrid.GridGeneral gridGeneral(redeclare
-      IDEAS.Electric.Data.Grids.TestGrid2Nodes grid)
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   BatterySystemGeneral batterySystemGeneral(
     redeclare IDEAS.Electric.Data.Batteries.LiIon technology,
     SoC_start=0.6,
     Pnet=Pnet,
-    EBat=10) annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    EBat=10) annotation (Placement(transformation(extent={{56,66},{76,86}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     duration=1500,
     startTime=2700,
@@ -43,17 +40,18 @@ model TestBattery
     annotation (Placement(transformation(extent={{-40,72},{-20,92}})));
   Modelica.Blocks.Interfaces.RealOutput y1 "Connector of Real output signals"
     annotation (Placement(transformation(extent={{2,90},{22,110}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
+    voltageSource(
+    f=50,
+    V=230,
+    phi=0) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={80,-20})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
+    annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
 equation
   Pnet = trapezoid.y;
-  connect(gridGeneral.gridNodes[2], batterySystemGeneral.pin[1]) annotation (
-      Line(
-      points={{-60,-30},{0.4,-30}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(wattsLaw.vi[1], gridGeneral.gridNodes[2]) annotation (Line(
-      points={{20,50},{40,50},{40,0},{-30,0},{-30,-30},{-60,-30}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(const.y, wattsLaw.Q) annotation (Line(
       points={{-19,20},{-10,20},{-10,52},{0.2,52}},
       color={0,0,127},
@@ -78,7 +76,19 @@ equation
       points={{-19,50},{-8,50},{-8,100},{12,100}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(wattsLaw.vi[1], batterySystemGeneral.pin[1]) annotation (Line(
+      points={{20,50},{28,50},{28,76},{56.4,76}},
+      color={85,170,255},
+      smooth=Smooth.None));
+    connect(voltageSource.pin_p,ground. pin) annotation (Line(
+        points={{80,-30},{80,-50}},
+        color={85,170,255},
+        smooth=Smooth.None));
+  connect(voltageSource.pin_n, wattsLaw.vi[1]) annotation (Line(
+      points={{80,-10},{80,50},{20,50}},
+      color={85,170,255},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics));
-end TestBattery;
+end TestBattery_only;

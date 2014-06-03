@@ -164,6 +164,6 @@ equation
         Text(
           extent={{-100,-60},{100,-100}},
           lineColor={127,0,0},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-100},{100,100}}), graphics));
+          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
+                   extent={{-100,-100},{100,100}}), graphics));
 end Building;
