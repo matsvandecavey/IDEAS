@@ -10,7 +10,8 @@ model ZoneExample
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   BoundaryWall
              commonWall(
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
+    redeclare
+      IDEAS.Buildings.Validation.Data.Constructions.HeavyWall_Foaminsulation61dot5
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     insulationThickness=0.1,
@@ -25,7 +26,8 @@ model ZoneExample
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
   InternalWall
              commonWall1(
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
+    redeclare
+      IDEAS.Buildings.Validation.Data.Constructions.HeavyWall_Foaminsulation61dot5
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     insulationThickness=0.1,
@@ -44,7 +46,8 @@ model ZoneExample
     redeclare IDEAS.Buildings.Components.Shading.Screen shaType)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   SlabOnGround slabOnGround(
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
+    redeclare
+      IDEAS.Buildings.Validation.Data.Constructions.LightWall_Fiberglass6dot6
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Pir insulationType,
     insulationThickness=0.1,
@@ -55,7 +58,8 @@ model ZoneExample
   OuterWall outerWall(
     inc=0,
     azi=0,
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
+    redeclare
+      IDEAS.Buildings.Validation.Data.Constructions.HeavyWall_Foaminsulation61dot5
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
     AWall=10,

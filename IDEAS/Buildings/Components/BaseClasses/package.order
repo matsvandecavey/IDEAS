@@ -6,7 +6,6 @@ AirLeakage
 AngleOfIncidence
 MonoLayerLucent
 MonoLayerOpaque
-MonoLayerOpaqueNf
 MultiLayerLucent
 MultiLayerOpaque
 InteriorConvection
