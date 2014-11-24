@@ -5,7 +5,7 @@ record CavityWall_Pur14
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     nLay=4,
     locGain=2,
-    final mats={Materials.BrickMe(d=0.08), Materials.Pur(d=0.16), Materials.BrickMi(d=
+    final mats={Materials.BrickMe(d=0.08), Insulation.Pur(d=0.16), Materials.BrickMi(d=
         0.14),Materials.Gypsum(d=0.015)});
 
 end CavityWall_Pur14;
