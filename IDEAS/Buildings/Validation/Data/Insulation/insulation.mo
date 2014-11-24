@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Insulation;
-record insulation = IDEAS.Buildings.Data.Interfaces.Insulation (
+record Insulation = IDEAS.Buildings.Data.Interfaces.Insulation (
     final k=0.040,
     final c=10,
     final rho=10,

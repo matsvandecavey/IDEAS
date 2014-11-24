@@ -17,18 +17,18 @@ protected
         IDEAS.Constants.West},
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
         IDEAS.Constants.Wall},
-    redeclare final parameter Data.Constructions.HeavyWall constructionType,
-    redeclare final parameter Data.Insulation.foaminsulation insulationType,
-    final insulationThickness={0.0615,0.0615,0.0615,0.0615}) annotation (
+    redeclare final parameter
+      IDEAS.Buildings.Validation.Data.Constructions.HeavyWall_Foaminsulation61dot5
+                                                                                                          constructionType) annotation (
       Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.BoundaryWall floor(
-    redeclare final parameter Data.Constructions.HeavyFloor constructionType,
-    redeclare final parameter Data.Insulation.insulation insulationType,
-    final insulationThickness=1.003,
+    redeclare final parameter
+      IDEAS.Buildings.Validation.Data.Constructions.HeavyFloor_Insulation100dot3
+                                                                                                         constructionType,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
     final azi=IDEAS.Constants.South) annotation (Placement(transformation(
@@ -54,9 +54,9 @@ protected
         rotation=90,
         origin={11,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
-    redeclare final parameter Data.Constructions.LightRoof constructionType,
-    redeclare final parameter Data.Insulation.fiberglass insulationType,
-    final insulationThickness=0.1118,
+    redeclare final parameter
+      IDEAS.Buildings.Validation.Data.Constructions.LightRoof_FiberGlass11dot18
+                                                                                                        constructionType,
     final AWall=48,
     final inc=IDEAS.Constants.Ceiling,
     final azi=IDEAS.Constants.South) annotation (Placement(transformation(

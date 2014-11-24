@@ -4,16 +4,11 @@ record Construction
   extends Modelica.Icons.MaterialProperty;
 
   parameter Integer nLay(min=1)
-    "Number of layers of the construction, including gaps";
-  parameter Integer locGain(min=1) = 1 "Location of possible embedded system";
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Insulation
-    insulationType(final d=insulationTickness) constrainedby
-    IDEAS.Buildings.Data.Interfaces.Insulation "Type of thermal insulation";
+    "Number of layers of the construction, including gaps and insulation";
+  parameter Integer locGain(min=1) = 1
+    "Location of possible embedded system outside to inside";
   parameter IDEAS.Buildings.Data.Interfaces.Material[nLay] mats
-    "Array of materials";
-  parameter Modelica.SIunits.Length insulationTickness=0
-    "Thermal insulation thickness";
-
+    "Array of materials, outside to inside";
   annotation (Documentation(info="<html>
 <h4><span style=\"color:#008000\">General description</span></h4>
 <h5>Goal</h5>

@@ -18,12 +18,12 @@ model Bui600 "BESTEST Building model case 600"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
-    redeclare final parameter Data.Constructions.LightWall constructionType,
-    redeclare final parameter Data.Insulation.fiberglass insulationType,
+    redeclare final parameter
+      IDEAS.Buildings.Validation.Data.Constructions.LightWall_Fiberglass6dot6
+        constructionType,
     final AWall={21.6,16.2,9.6,16.2},
     final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
         IDEAS.Constants.West},
-    final insulationThickness={0.066,0.066,0.066,0.066},
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
         IDEAS.Constants.Wall}) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -31,9 +31,9 @@ model Bui600 "BESTEST Building model case 600"
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.BoundaryWall floor(
-    redeclare final parameter Data.Constructions.LightFloor constructionType,
-    redeclare final parameter Data.Insulation.insulation insulationType,
-    final insulationThickness=1.003,
+    redeclare final parameter
+      IDEAS.Buildings.Validation.Data.Constructions.LightFloor_Insulation100dot3
+        constructionType,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
     final azi=IDEAS.Constants.South) annotation (Placement(transformation(
@@ -53,9 +53,9 @@ model Bui600 "BESTEST Building model case 600"
         rotation=90,
         origin={11,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
-    redeclare final parameter Data.Constructions.LightRoof constructionType,
-    redeclare final parameter Data.Insulation.fiberglass insulationType,
-    final insulationThickness=0.1118,
+    redeclare final parameter
+      IDEAS.Buildings.Validation.Data.Constructions.LightRoof_FiberGlass11dot18
+        constructionType,
     final AWall=48,
     final inc=IDEAS.Constants.Ceiling,
     final azi=IDEAS.Constants.South) annotation (Placement(transformation(

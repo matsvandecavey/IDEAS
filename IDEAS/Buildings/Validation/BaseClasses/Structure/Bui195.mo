@@ -18,11 +18,11 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
-    redeclare final parameter Data.Constructions.LightWall_195 constructionType,
-    redeclare final parameter Data.Insulation.fiberglass insulationType,
+    redeclare final parameter
+      IDEAS.Buildings.Validation.Data.Constructions.LightWall_195_Fiberglass6dot6
+      constructionType,
     final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
         IDEAS.Constants.West},
-    final insulationThickness={0.066,0.066,0.066,0.066},
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
         IDEAS.Constants.Wall},
     final AWall={21.6,16.2,21.6,16.2})
@@ -42,9 +42,8 @@ protected
         rotation=90,
         origin={-19,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
-    redeclare final parameter Data.Constructions.LightRoof_195 constructionType,
-    redeclare final parameter Data.Insulation.fiberglass insulationType,
-    final insulationThickness=0.1118,
+    redeclare final parameter
+      Data.Constructions.LightRoof_195_Fiberglass11dot18                         constructionType,
     final AWall=48,
     final inc=IDEAS.Constants.Ceiling,
     final azi=IDEAS.Constants.South) annotation (Placement(transformation(

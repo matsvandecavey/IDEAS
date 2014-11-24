@@ -17,11 +17,9 @@ model structure "Example detailed building structure model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   //Definition of the building envelope for gF
   Components.OuterWall[3] gF_ext(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWallRockwool16 constructionType,
     AWall={10,21,10},
     azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-    insulationThickness={0.16,0.16,0.16},
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
@@ -38,9 +36,7 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,-75.5})));
   Components.SlabOnGround gF_floor(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
-    insulationThickness=0.14,
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWallPur14 constructionType,
     AWall=72,
     PWall=26,
     inc=IDEAS.Constants.Floor,
@@ -50,11 +46,9 @@ model structure "Example detailed building structure model"
         origin={-47,-76})));
   //Definition of the building envelope for fF
   Components.OuterWall[3] fF_ext(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWallRockwool16 constructionType,
     AWall={10,21,10},
     azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-    insulationThickness={0.16,0.16,0.16},
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
@@ -71,9 +65,7 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,-15.5})));
   Components.InternalWall fF_floor(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
-    insulationThickness=0.04,
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWallPur4 constructionType,
     AWall=74,
     inc=IDEAS.Constants.Floor,
     azi=IDEAS.Constants.South) annotation (Placement(transformation(
@@ -82,11 +74,9 @@ model structure "Example detailed building structure model"
         origin={-47,-16})));
   //Definition of the building envelope for sF
   Components.OuterWall[3] sF_ext(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWallRockwool16 constructionType,
     AWall={10,21,10},
     azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-    insulationThickness={0.16,0.16,0.16},
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
@@ -103,9 +93,7 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,44.5})));
   Components.InternalWall sF_floor(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
-    insulationThickness=0.04,
+    redeclare IDEAS.Buildings.Data.Constructions.Pur4 constructionType,
     AWall=74,
     inc=IDEAS.Constants.Floor,
     azi=IDEAS.Constants.South) annotation (Placement(transformation(
@@ -113,9 +101,7 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={-47,44})));
   Components.OuterWall sF_roof(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Xps insulationType,
-    insulationThickness=0.32,
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWallXps32 constructionType,
     AWall=74,
     inc=IDEAS.Constants.Ceiling,
     azi=IDEAS.Constants.South) annotation (Placement(transformation(
