@@ -80,7 +80,7 @@ public
     "Control position of the FCU, controlled automatically based on TSet and TAct"
     annotation (Placement(transformation(extent={{-30,-44},{-10,-24}})));
   Modelica.Blocks.Math.Add add(k1=-1)
-    annotation (Placement(transformation(extent={{-64,-44},{-44,-24}})));
+    annotation (Placement(transformation(extent={{-64,-38},{-56,-30}})));
   Modelica.Blocks.Sources.RealExpression TAir(y=heatPortCon.T)
     annotation (Placement(transformation(extent={{-100,-22},{-74,-6}})));
   Modelica.Blocks.Interfaces.RealInput release "if < 0.5, the FCU is OFF"
@@ -140,10 +140,16 @@ public
   Modelica.Blocks.Sources.RealExpression mFloAir_expr(y=mFloAirSet)
     annotation (Placement(transformation(extent={{54,10},{74,30}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T=10)
-    annotation (Placement(transformation(extent={{26,-45},{44,-27}})));
+    annotation (Placement(transformation(extent={{40,-42},{50,-31}})));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMin=0, strict=true)
     annotation (Placement(transformation(extent={{58,-41},{68,-31}})));
 
+  //parameter SI.Time delayTime=3600
+   // "Delay time of output with respect to input signal" annotation(Evaluate=false);
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(T=TimeConstant)
+    annotation (Placement(transformation(extent={{-48,-38},{-41,-30}})));
+  parameter SI.Time TimeConstant=1000 "Time Constant"
+                                                     annotation(Evaluate=false);
 equation
   connect(res.port_b, port_b) annotation (Line(
       points={{80,0},{100,0}},
@@ -155,15 +161,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TSet, add.u2) annotation (Line(
-      points={{-106,-40},{-66,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add.y, posFCU_real.u) annotation (Line(
-      points={{-43,-34},{-32,-34}},
+      points={{-106,-40},{-86,-40},{-86,-36.4},{-64.8,-36.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TAir.y, add.u1) annotation (Line(
-      points={{-72.7,-14},{-70,-14},{-70,-28},{-66,-28}},
+      points={{-72.7,-14},{-70,-14},{-70,-31.6},{-64.8,-31.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(posFCU_real.release, release) annotation (Line(
@@ -222,12 +224,8 @@ equation
       points={{75,20},{92,20},{92,38},{86,38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(posVal_expr.y, firstOrder.u) annotation (Line(
-      points={{17,-58},{20,-58},{20,-36},{24.2,-36}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(firstOrder.y, limiter.u) annotation (Line(
-      points={{44.9,-36},{57,-36}},
+      points={{50.5,-36.5},{52,-36.5},{52,-36},{57,-36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(limiter.y, val.y) annotation (Line(
@@ -239,6 +237,18 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   heatPortRad.Q_flow=0;
+  connect(add.y, firstOrder1.u) annotation (Line(
+      points={{-55.6,-34},{-48.7,-34}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(posFCU_real.u, firstOrder1.y) annotation (Line(
+      points={{-32,-34},{-40.65,-34}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(firstOrder.u, posVal_expr.y) annotation (Line(
+      points={{39,-36.5},{24,-36.5},{24,-58},{17,-58}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Simplified dynamic radiator model, not discretized, based on EN&nbsp;442-2. </p>
@@ -287,6 +297,7 @@ equation
         Rectangle(extent={{-22,-82},{0,78}},    lineColor={135,135,135}),
         Rectangle(extent={{8,-82},{30,78}},   lineColor={135,135,135}),
         Rectangle(extent={{38,-82},{60,78}},  lineColor={135,135,135})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                   graphics));
 end FanCoilUnit;
