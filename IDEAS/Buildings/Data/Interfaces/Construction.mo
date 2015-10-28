@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Interfaces;
-model Construction
+record Construction "Layers from outer to inner"
 
   extends Modelica.Icons.MaterialProperty;
 
