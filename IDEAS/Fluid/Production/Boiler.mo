@@ -8,7 +8,6 @@ model Boiler
 
   IDEAS.Fluid.Production.BaseClasses.HeatSource_CondensingGasBurner heatSource(
     QNom=QNom,
-    TBoilerSet=TSet,
     TEnvironment=heatPort.T,
     UALoss=UALoss,
     modulationMin=modulationMin,
@@ -16,11 +15,15 @@ model Boiler
     THxIn=Tin.T,
     hIn=inStream(port_a.h_outflow),
     m_flowHx=port_a.m_flow,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    useTSet=useTSet)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   parameter Real modulationMin=25 "Minimal modulation percentage";
   parameter Real modulationStart=35
     "Min estimated modulation level required for start of HP";
+  Modelica.Blocks.Interfaces.RealInput QSet if not useTSet
+    "Connector of Real input signal"
+    annotation (Placement(transformation(extent={{-126,-54},{-86,-14}})));
 equation
   // Electricity consumption for electronics and fan only.  Pump is covered by pumpHeater;
   // This data is taken from Viessmann VitoDens 300W, smallest model.  So only valid for
@@ -29,14 +32,23 @@ equation
   PFuel = heatSource.PFuel;
   eta = heatSource.eta;
   connect(heatSource.heatPort, pipe_HeatPort.heatPort) annotation (Line(
-      points={{-60,30},{28,30},{28,-6}},
+      points={{-60,30},{30,30},{30,-6}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatSource.QSet, QSet) annotation (Line(
+      points={{-81,31},{-84,31},{-84,-34},{-106,-34}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TSet, heatSource.TSet) annotation (Line(
+      points={{-106,0},{-86,0},{-86,34},{-81,34}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             120}}),
             graphics),
-    Icon(graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+         graphics={
         Ellipse(
           extent={{-60,60},{58,-60}},
           lineColor={0,0,0},
