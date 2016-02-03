@@ -1,0 +1,20 @@
+within IDEAS.Fluid.HeatExchangers.FanCoilUnits.data.FCU;
+record FCU_32 = IDEAS.Fluid.HeatExchangers.FanCoilUnits.data.FCU.Generic (
+    QNom=1937.36,
+    m_flow_nominal_water=0.0403,
+    m_flow_nominal_air=0.168,
+    mMedium=2,
+    mDry=23,
+    TWater_in_nominal=50 + 273.15,
+    TWater_out_nominal=40 + 273.15,
+    TAir_in_nominal=21 + 273.15,
+    TAir_out_nominal=303.15,
+    dTSet=1.0,
+    TSet=295.15,
+    Kv_nominal=2.34,
+    fractionRad=0.275,
+    position={0.0,1.0,2.0,3.0},
+    m_flow={0.0,0.01778,0.02139,0.02694},
+    y={0,0.5,0.75,1} "Valve opening",
+    phi={0.0001,0.9727, 0.9849, 1} "ratio to determine KV from Kv nominal.
+  Kv[position]/Kv[valve open]. Kv = m_flow/sqrt(p) [m3/s/(bar)^(1/2)]");
