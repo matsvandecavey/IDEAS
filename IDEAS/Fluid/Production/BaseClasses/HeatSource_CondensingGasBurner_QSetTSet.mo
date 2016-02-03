@@ -154,17 +154,26 @@ algorithm
     y1d=0,
     y2d=0) - onOff.y*QLossesToCompensate;
 
+protected
+  Modelica.Blocks.Interfaces.RealInput TSet_internal
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput QSet_internal
+    "Needed to connect to conditional connector";
 equation
+  connect(TSet, TSet_internal);
+  connect(QSet, QSet_internal);
   assert(TBoilerSet < 80+273.15 and TBoilerSet > 20 + 273.15, "The given set point temperature is not inside the covered range (20 -> 80 degC)");
   assert(m_flowHx_scaled*kgps2lph < 1300, "The given mass flow rate is outside the allowed range. Make sure that the mass flow
   is positive and not too high. The current mass flow equals " + String(m_flowHx) + " [kg/s] but its maximum value is for the chosen QNom is " + String(1300*QNom/QNom0/kgps2lph));
   onOff.release = if noEvent(m_flowHx > Modelica.Constants.eps) then 1.0 else 0.0;
   if useTSet then
-    connect(TBoilerSet, TSet);
+    TBoilerSet = TSet_internal;
+    QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TSet_internal, Medium.X_default)) -hIn), 10);
+  else
+    TBoilerSet=0;
+    QAsked = QSet_internal;
   end if;
-
-  QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TBoilerSet, Medium.X_default)) -hIn), 10);
-  // compensation of heat losses (only when the hp is operating)
+    // compensation of heat losses (only when the hp is operating)
   QLossesToCompensate = if noEvent(modulation > 0) then UALoss*(heatPort.T -
     TEnvironment) else 0;
   PFuel = if onOff.release > 0.5 and noEvent(eta>Modelica.Constants.eps) then -heatPort.Q_flow/eta else 0;
