@@ -34,12 +34,13 @@ protected
         origin={-30,-70})));
 
 public
-  Modelica.Blocks.Interfaces.RealInput TSet "Temperature setpoint"
+  Modelica.Blocks.Interfaces.RealInput TSet if useTSet "Temperature setpoint"
                            annotation (Placement(
         transformation(extent={{-126,-20},{-86,20}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,120})));
+  parameter Boolean useTSet = true;
   Modelica.Blocks.Interfaces.RealOutput PEl "Electrical consumption"
     annotation (Placement(transformation(extent={{-94,46},{-114,66}}),
         iconTransformation(
