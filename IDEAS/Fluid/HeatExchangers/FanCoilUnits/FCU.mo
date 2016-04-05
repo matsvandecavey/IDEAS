@@ -19,7 +19,9 @@ model FCU
     Q_flow_nominal=FCU_characteristics.QNom,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed,
     T_a1_nominal=FCU_characteristics.TWater_in_nominal,
-    T_a2_nominal=FCU_characteristics.TAir_in_nominal) annotation (Placement(
+    T_a2_nominal=FCU_characteristics.TAir_in_nominal,
+    allowFlowReversal1=false,
+    allowFlowReversal2=false)                         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -33,7 +35,9 @@ model FCU
     Kv=FCU_characteristics.Kv_nominal,
     flowCharacteristics=IDEAS.Fluid.Actuators.Valves.Data.Generic(y=
         FCU_characteristics.y, phi=FCU_characteristics.phi),
-    from_dp=from_dp)                    annotation (Placement(transformation(
+    from_dp=from_dp,
+    show_T=true,
+    riseTime=1000)                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,0})));
@@ -56,13 +60,14 @@ model FCU
         rotation=180,
         origin={56,-40})));
   IDEAS.Fluid.Sensors.EnthalpyFlowRate senEntFlo_in(redeclare package Medium =
-        Air, m_flow_nominal=FCU_characteristics.m_flow_nominal_air)
-                                      annotation (Placement(transformation(
+        Air, m_flow_nominal=FCU_characteristics.m_flow_nominal_air,
+    tau=0)                            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={28,-40})));
   IDEAS.Fluid.Sensors.EnthalpyFlowRate senEntFlo_out(redeclare package Medium
-      = Air, m_flow_nominal=FCU_characteristics.m_flow_nominal_air) annotation (
+      = Air, m_flow_nominal=FCU_characteristics.m_flow_nominal_air,
+    tau=0)                                                          annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -87,7 +92,7 @@ model FCU
   Modelica.Blocks.Sources.RealExpression realExpression3(y=ctrlValveFCU.y)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={26,-76})));
+        origin={-6,-76})));
 
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -131,6 +136,8 @@ model FCU
   parameter Boolean enableRelease=false
     "if true, an additional RealInput will be available for releasing the controller";
   parameter Modelica.SIunits.Temperature TSet=273.15 + 21;
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=200)
+    annotation (Placement(transformation(extent={{14,-86},{34,-66}})));
 equation
   Q_flow_total = -1*(senEntFlo_out.H_flow - senEntFlo_in.H_flow)
     "Net FCU-emitted(hence negative sign) entropy gain";
@@ -164,10 +171,12 @@ equation
     annotation (Line(points={{68,-44},{79,-44}}, color={0,0,127}));
   connect(combiTable1D.y[1], m_flow_in_air.m_flow_in) annotation (Line(points={{
           67,-76},{76,-76},{76,-48},{66,-48}}, color={0,0,127}));
-  connect(realExpression3.y, combiTable1D.u[1])
-    annotation (Line(points={{37,-76},{44,-76}}, color={0,0,127}));
   connect(Delta_T_short.y, ctrlValveFCU.u)
     annotation (Line(points={{-79,20},{-72,20}}, color={0,0,127}));
+  connect(realExpression3.y, firstOrder.u)
+    annotation (Line(points={{5,-76},{12,-76}}, color={0,0,127}));
+  connect(combiTable1D.u[1], firstOrder.y)
+    annotation (Line(points={{44,-76},{35,-76}}, color={0,0,127}));
  annotation (
     Placement(transformation(extent={{-80,78},{-60,98}})),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

@@ -41,6 +41,29 @@ model Partial3WayValve "Partial for 3-way valves"
         origin={0,-44})));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports.";
+
+  // Diagnostics
+   parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed"
+    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+
+  Medium.ThermodynamicState sta_a1=
+      Medium.setState_phX(port_a1.p,
+                          noEvent(actualStream(port_a1.h_outflow)),
+                          noEvent(actualStream(port_a1.Xi_outflow))) if
+         show_T "Medium properties in port_a1";
+
+  Medium.ThermodynamicState sta_a2=
+      Medium.setState_phX(port_a2.p,
+                          noEvent(actualStream(port_a2.h_outflow)),
+                          noEvent(actualStream(port_a2.Xi_outflow))) if
+         show_T "Medium properties in port_a2";
+
+  Medium.ThermodynamicState sta_b=
+      Medium.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow))) if
+          show_T "Medium properties in port_b";
 equation
   connect(port_a1, vol.ports[1]) annotation (Line(
       points={{-100,0},{-2,0}},
